@@ -10,7 +10,7 @@ function OperatorBox() {
         //   className={styles.inputs_and_summary}
         >
           <div className={styles.inputs}>
-            <label className={styles.input_label_wrapper}>
+            <label className="cm-input-label">
               <span>First input:</span>
               <input
                 type="number"
@@ -20,7 +20,7 @@ function OperatorBox() {
               />
             </label>
 
-            <label className={styles.input_label_wrapper}>
+            <label className="cm-input-label">
               <span>Second input:</span>
               <input
                 type="number"
