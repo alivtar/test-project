@@ -6,11 +6,34 @@
 body 
   background: #eee
 
-.cm-action-btn 
+
+  /* TODO: Extract this mixin to a seperate file */
+@mixin cm-base-btn 
   padding: 12px 16px
-  background: blue
   border-radius: 8px
-  color: white
   cursor: pointer
   border: none
   min-width: 80px
+
+
+/* TODO: We can also seperate these different "button classes" to a seperate file. */
+.cm-action-btn
+  @include cm-base-btn
+  background: blue
+  color: white
+
+.cm-delete-btn
+  @include cm-base-btn
+  background: red
+  color: white
+
+.cm-copy-btn
+  @include cm-base-btn
+  background: purple
+  color: white
+
+
+.cm-input 
+  padding: 8px
+  border-radius: 8px
+  border: 1px solid #dbdbdb

@@ -1,4 +1,4 @@
-import styles from "./action_bar.module.sass"
+import styles from "./action_bar.module.sass";
 
 function ActionBar() {
   return (
@@ -8,7 +8,7 @@ function ActionBar() {
       <button className="cm-action-btn">Divide</button>
       <button className="cm-action-btn">Multiply</button>
     </div>
-  )
+  );
 }
 
-export default ActionBar
+export default ActionBar;
