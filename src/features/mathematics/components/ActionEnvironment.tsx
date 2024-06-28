@@ -9,8 +9,6 @@ import { IRootState } from "../../../app/store";
 function ActionEnvironment() {
   const operatorsList = useSelector(selectOperatorsList);
 
-  console.log("operatorsList", operatorsList);
-
   // const getOperatorNumber = (operator_type: Operator_Types) => {
   //   const allItemsWithDesiredOperator = operatorsList.filter(
   //     (item) => item.operator_type === operator_type,

@@ -1,22 +1,22 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Operator_Types } from "./types";
 import { calculate } from "./utils/calculate";
-import { IRootState } from "../../app/store";
+import { type IRootState } from "../../app/store";
+import { writeOperatorsListToStorage } from "./utils/storage";
+import { monotonicFactory } from "ulid";
 
 export type TOperator = {
-  readonly id: number;
+  readonly id: string;
   operator_type: Operator_Types;
   input_1: number;
   input_2: number;
   currentOperatorOutput: number | undefined;
 };
 
-// to generate and track items' IDs
-// TODO: update this id when reading from localstorage
-let ID: number = 1;
+const ulid = monotonicFactory();
 
-const incrementID = () => {
-  ID = ID + 1;
+const generateId = (): string => {
+  return ulid(150000);
 };
 
 interface MathematicsState {
@@ -31,9 +31,13 @@ const mathematicsSlice = createSlice({
   name: "mathematicsSlice",
   initialState: MATHEMATICS_INITIAL_STATE,
   reducers: {
+    overrideOperatorsList: (state, action: PayloadAction<TOperator[]>) => {
+      console.log("Inside reducer", action.payload);
+      state.operators_list = action.payload;
+    },
     addOperator: (state, action: PayloadAction<Operator_Types>) => {
       const new_operator: TOperator = {
-        id: ID,
+        id: generateId(),
         input_1: 0,
         input_2: 0,
         operator_type: action.payload,
@@ -41,9 +45,8 @@ const mathematicsSlice = createSlice({
           action.payload === Operator_Types.DIVIDE ? undefined : 0,
       };
 
-      incrementID();
-
       state.operators_list.push(new_operator);
+      writeOperatorsListToStorage(state.operators_list);
     },
     updateFirstInput: (
       state,
@@ -67,6 +70,8 @@ const mathematicsSlice = createSlice({
         }
         return item;
       });
+
+      writeOperatorsListToStorage(state.operators_list);
     },
     updateSecondInput: (
       state,
@@ -90,11 +95,15 @@ const mathematicsSlice = createSlice({
         }
         return item;
       });
+
+      writeOperatorsListToStorage(state.operators_list);
     },
     deleteOperator: (state, action: PayloadAction<{ id: TOperator["id"] }>) => {
       state.operators_list = state.operators_list.filter(
         (item) => item.id !== action.payload.id,
       );
+
+      writeOperatorsListToStorage(state.operators_list);
     },
     copyOperator: (
       state,
@@ -105,8 +114,7 @@ const mathematicsSlice = createSlice({
         currentIndex: number;
       }>,
     ) => {
-      const newId = ID;
-      incrementID();
+      const newId = generateId();
 
       const firstInputValue = action.payload.firstInputValue;
       const secondInputValue = action.payload.secondInputValue;
@@ -131,6 +139,8 @@ const mathematicsSlice = createSlice({
         0,
         newOperatorObj,
       );
+
+      writeOperatorsListToStorage(state.operators_list);
     },
   },
 });
@@ -141,6 +151,7 @@ export const {
   updateSecondInput,
   deleteOperator,
   copyOperator,
+  overrideOperatorsList,
 } = mathematicsSlice.actions;
 
 // Selectors

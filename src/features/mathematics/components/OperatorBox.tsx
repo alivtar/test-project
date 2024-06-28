@@ -9,7 +9,7 @@ import {
 import { Operator_Types } from "../types";
 
 type TOperatorBox = {
-  readonly id: number;
+  readonly id: string;
   readonly operatorIndex: number;
   title: string;
   firstInputValue: number;
