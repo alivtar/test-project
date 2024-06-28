@@ -1,9 +1,29 @@
+import { useDispatch } from "react-redux";
 import styles from "./operator_box.module.sass";
+import { updateFirstInput, updateSecondInput } from "../mathematicsSlice";
 
-function OperatorBox() {
+type TOperatorBox = {
+  readonly id: number;
+  readonly operatorIndex: number;
+  title: string;
+  firstInputValue: number;
+  secondInputValue: number;
+  currentOperatorOutput: number | undefined;
+};
+
+function OperatorBox({
+  title,
+  operatorIndex,
+  id,
+  firstInputValue,
+  secondInputValue,
+  currentOperatorOutput,
+}: TOperatorBox) {
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.operator_box}>
-      <h1 className={styles.operator_title}>Operator title</h1>
+      <h1 className={styles.operator_title}>{title}</h1>
 
       <div className={styles.operations_wrapper}>
         <div
@@ -15,8 +35,15 @@ function OperatorBox() {
               <input
                 type="number"
                 className="cm-input"
-                value={""}
-                onChange={(e) => {}}
+                value={firstInputValue}
+                onChange={(e) => {
+                  dispatch(
+                    updateFirstInput({
+                      id,
+                      firstInputValue: Number(e.target.value),
+                    }),
+                  );
+                }}
               />
             </label>
 
@@ -25,17 +52,26 @@ function OperatorBox() {
               <input
                 type="number"
                 className="cm-input"
-                value={""}
-                onChange={(e) => {}}
+                value={secondInputValue}
+                onChange={(e) => {
+                  dispatch(
+                    updateSecondInput({
+                      id,
+                      secondInputValue: Number(e.target.value),
+                    }),
+                  );
+                }}
               />
             </label>
           </div>
 
           {/* TODO: this summary will ONLY be shown for " >= 1" indecies */}
-          <div className={styles.summary_wrapper}>
-            <p>Summary above operator</p>
-            <div className={styles.summary}>value: 30</div>
-          </div>
+          {operatorIndex > 0 && (
+            <div className={styles.summary_wrapper}>
+              <p>Summary above operator</p>
+              <div className={styles.summary}>value: 30</div>
+            </div>
+          )}
         </div>
 
         <div className={styles.output_and_actions}>
@@ -46,7 +82,7 @@ function OperatorBox() {
 
           <div className={styles.operator_output}>
             <p>Output Of Current Operator:</p>
-            <span>20</span>
+            <span>{currentOperatorOutput}</span>
           </div>
         </div>
       </div>

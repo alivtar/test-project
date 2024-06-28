@@ -3,11 +3,20 @@ import OperatorBox from "./OperatorBox";
 import SearchSection from "./SearchSection";
 import styles from "./action_environment.module.sass";
 import type { IRootState } from "../../../app/store";
+import { Operator_Types } from "../types";
 
 function ActionEnvironment() {
   const operatorsList = useSelector(
     (state: IRootState) => state.mathematicsData.operators_list,
   );
+
+  console.log("operatorsList", operatorsList);
+
+  const getOperatorNumber = (operator_type: Operator_Types) => {
+    const allItemsWithDesiredOperator = operatorsList.filter(
+      (item) => item.operator_type === operator_type,
+    );
+  };
 
   return (
     <div
@@ -21,7 +30,17 @@ function ActionEnvironment() {
           </div>
         ) : (
           operatorsList.map((item, idx) => {
-            return <OperatorBox key={item.operator_type + idx} />;
+            return (
+              <OperatorBox
+                key={item.id}
+                operatorIndex={idx}
+                id={item.id}
+                title={`Operator ${item.operator_type.toLocaleLowerCase()} ${idx}`} // TODO
+                firstInputValue={item.input_1}
+                secondInputValue={item.input_2}
+                currentOperatorOutput={item.currentOperatorOutput}
+              />
+            );
           })
         )}
       </div>
