@@ -45,6 +45,7 @@ function SearchSection() {
               className="cm-input"
               value={userEnteredValue ?? ""}
               onChange={(e) => {
+                setFoundOperator(undefined);
                 setUserEnteredValue(parseInt(e.target.value));
               }}
             />
