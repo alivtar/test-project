@@ -14,6 +14,10 @@ export type TOperator = {
 // TODO: update this id when reading from localstorage
 let ID: number = 1;
 
+const incrementID = () => {
+  ID = ID + 1;
+};
+
 interface MathematicsState {
   operators_list: TOperator[];
 }
@@ -36,7 +40,7 @@ const usersSlice = createSlice({
           action.payload === Operator_Types.DIVIDE ? undefined : 0,
       };
 
-      ID = ID + 1;
+      incrementID();
 
       state.operators_list.push(new_operator);
     },
@@ -91,6 +95,42 @@ const usersSlice = createSlice({
         (item) => item.id !== action.payload.id,
       );
     },
+    copyOperator: (
+      state,
+      action: PayloadAction<{
+        operator_type: Operator_Types;
+        firstInputValue: number;
+        secondInputValue: number;
+        currentIndex: number;
+      }>,
+    ) => {
+      const newId = ID;
+      incrementID();
+
+      const firstInputValue = action.payload.firstInputValue;
+      const secondInputValue = action.payload.secondInputValue;
+      const operatorType = action.payload.operator_type;
+
+      const currentOperatorOutput = calculate(
+        firstInputValue,
+        secondInputValue,
+        operatorType,
+      );
+
+      const newOperatorObj = {
+        id: newId,
+        operator_type: operatorType,
+        input_1: firstInputValue,
+        input_2: secondInputValue,
+        currentOperatorOutput,
+      };
+
+      state.operators_list.splice(
+        action.payload.currentIndex,
+        0,
+        newOperatorObj,
+      );
+    },
   },
 });
 
@@ -99,6 +139,7 @@ export const {
   updateFirstInput,
   updateSecondInput,
   deleteOperator,
+  copyOperator,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

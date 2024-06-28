@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import styles from "./operator_box.module.sass";
 import {
+  copyOperator,
   deleteOperator,
   updateFirstInput,
   updateSecondInput,
@@ -106,7 +107,21 @@ function OperatorBox({
             >
               Delete
             </button>
-            <button className="cm-copy-btn">Copy</button>
+            <button
+              className="cm-copy-btn"
+              onClick={() => {
+                dispatch(
+                  copyOperator({
+                    currentIndex: operatorIndex,
+                    firstInputValue,
+                    secondInputValue,
+                    operator_type: operatorType,
+                  }),
+                );
+              }}
+            >
+              Copy
+            </button>
           </div>
 
           <div className={styles.operator_output}>
