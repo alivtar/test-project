@@ -4,6 +4,7 @@ import SearchSection from "./SearchSection";
 import styles from "./action_environment.module.sass";
 import type { IRootState } from "../../../app/store";
 import { Operator_Types } from "../types";
+import { TOperator } from "../mathematicsSlice";
 
 function ActionEnvironment() {
   const operatorsList = useSelector(
@@ -30,6 +31,10 @@ function ActionEnvironment() {
           </div>
         ) : (
           operatorsList.map((item, idx) => {
+            const previousOperatorObj = operatorsList[idx - 1] as
+              | TOperator
+              | undefined;
+
             return (
               <OperatorBox
                 key={item.id}
@@ -40,6 +45,9 @@ function ActionEnvironment() {
                 secondInputValue={item.input_2}
                 currentOperatorOutput={item.currentOperatorOutput}
                 operatorType={item.operator_type}
+                previousOperatorOutput={
+                  previousOperatorObj?.currentOperatorOutput
+                }
               />
             );
           })

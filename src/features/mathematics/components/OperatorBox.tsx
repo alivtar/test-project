@@ -11,6 +11,7 @@ type TOperatorBox = {
   secondInputValue: number;
   currentOperatorOutput: number | undefined;
   operatorType: Operator_Types;
+  previousOperatorOutput: number | undefined;
 };
 
 function OperatorBox({
@@ -21,9 +22,13 @@ function OperatorBox({
   secondInputValue,
   currentOperatorOutput,
   operatorType,
+  previousOperatorOutput,
 }: TOperatorBox) {
   const dispatch = useDispatch();
   console.log("currentOperatorOutput", id, currentOperatorOutput);
+
+  const isMathematicallyUndefined: boolean =
+    operatorType === Operator_Types.DIVIDE && secondInputValue === 0;
 
   return (
     <div className={styles.operator_box}>
@@ -67,12 +72,11 @@ function OperatorBox({
                 }}
               />
 
-              {operatorType === Operator_Types.DIVIDE &&
-                secondInputValue === 0 && (
-                  <p className={styles.math_undefined}>
-                    denominator can not be zero
-                  </p>
-                )}
+              {isMathematicallyUndefined && (
+                <p className={styles.math_undefined}>
+                  denominator can not be zero
+                </p>
+              )}
             </label>
           </div>
 
@@ -80,7 +84,13 @@ function OperatorBox({
           {operatorIndex > 0 && (
             <div className={styles.summary_wrapper}>
               <p>Summary above operator</p>
-              <div className={styles.summary}>value: 30</div>
+              <div className={styles.summary}>
+                value:{" "}
+                {isMathematicallyUndefined
+                  ? "Please specify a non-zero denominator"
+                  : (currentOperatorOutput ?? 0) +
+                    (previousOperatorOutput ?? 0)}
+              </div>
             </div>
           )}
         </div>
@@ -94,7 +104,7 @@ function OperatorBox({
           <div className={styles.operator_output}>
             <p>Output Of Current Operator:</p>
             <span>
-              {operatorType === Operator_Types.DIVIDE && secondInputValue === 0
+              {isMathematicallyUndefined
                 ? "mathematically undefined"
                 : currentOperatorOutput}
             </span>
