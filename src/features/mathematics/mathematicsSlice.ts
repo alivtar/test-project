@@ -1,18 +1,19 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import type { Operator_Types } from "./types";
 
-export type UserType = {
-  id: number | string
-  name: string
-  username: string
+export type TOperatorsList = {
+  operator_type: Operator_Types;
+  input_1: number;
+  input_2: number;
+};
+
+interface MathematicsState {
+  operators_list: TOperatorsList[];
 }
 
-interface UsersState {
-  //   list: UserType[]
-}
-
-const MATHEMATICS_INITIAL_STATE: UsersState = {
-  //   list: FakeData,
-}
+const MATHEMATICS_INITIAL_STATE: MathematicsState = {
+  operators_list: [],
+};
 
 const usersSlice = createSlice({
   name: "usersSlice",
@@ -39,8 +40,8 @@ const usersSlice = createSlice({
     //   state.list = state.list.filter(user => user.id !== action.payload.userId)
     // },
   },
-})
+});
 
-export const { addUser, updateUser, deleteUser } = usersSlice.actions
+// export const { addUser, updateUser, deleteUser } = usersSlice.actions;
 
-export default usersSlice.reducer
+export default usersSlice.reducer;
