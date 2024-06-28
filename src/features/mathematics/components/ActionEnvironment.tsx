@@ -2,20 +2,20 @@ import { useSelector } from "react-redux";
 import OperatorBox from "./OperatorBox";
 import SearchSection from "./SearchSection";
 import styles from "./action_environment.module.sass";
-import type { IRootState } from "../../../app/store";
 import type { Operator_Types } from "../types";
-import type { TOperator } from "../mathematicsSlice";
+import { selectOperatorsList, type TOperator } from "../mathematicsSlice";
+import { IRootState } from "../../../app/store";
 
 function ActionEnvironment() {
-  const operatorsList = useSelector(
-    (state: IRootState) => state.mathematicsData.operators_list,
-  );
+  const operatorsList = useSelector(selectOperatorsList);
 
-  const getOperatorNumber = (operator_type: Operator_Types) => {
-    const allItemsWithDesiredOperator = operatorsList.filter(
-      (item) => item.operator_type === operator_type,
-    );
-  };
+  console.log("operatorsList", operatorsList);
+
+  // const getOperatorNumber = (operator_type: Operator_Types) => {
+  //   const allItemsWithDesiredOperator = operatorsList.filter(
+  //     (item) => item.operator_type === operator_type,
+  //   );
+  // };
 
   return (
     <div
@@ -52,7 +52,7 @@ function ActionEnvironment() {
         )}
       </div>
 
-      {operatorsList.length !== 0 && <SearchSection />}
+      <SearchSection />
     </div>
   );
 }

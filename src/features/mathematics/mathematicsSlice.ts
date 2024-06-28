@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Operator_Types } from "./types";
 import { calculate } from "./utils/calculate";
+import { IRootState } from "../../app/store";
 
 export type TOperator = {
   readonly id: number;
@@ -26,8 +27,8 @@ const MATHEMATICS_INITIAL_STATE: MathematicsState = {
   operators_list: [],
 };
 
-const usersSlice = createSlice({
-  name: "usersSlice",
+const mathematicsSlice = createSlice({
+  name: "mathematicsSlice",
   initialState: MATHEMATICS_INITIAL_STATE,
   reducers: {
     addOperator: (state, action: PayloadAction<Operator_Types>) => {
@@ -140,6 +141,10 @@ export const {
   updateSecondInput,
   deleteOperator,
   copyOperator,
-} = usersSlice.actions;
+} = mathematicsSlice.actions;
 
-export default usersSlice.reducer;
+// Selectors
+export const selectOperatorsList = (state: IRootState) =>
+  state.mathematicsData.operators_list;
+
+export default mathematicsSlice.reducer;
