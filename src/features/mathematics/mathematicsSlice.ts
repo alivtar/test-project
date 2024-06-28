@@ -86,9 +86,11 @@ const usersSlice = createSlice({
         return item;
       });
     },
-    // deleteUser: (state, action: PayloadAction<{ userId: UserType["id"] }>) => {
-    //   state.list = state.list.filter(user => user.id !== action.payload.userId)
-    // },
+    deleteOperator: (state, action: PayloadAction<{ id: TOperator["id"] }>) => {
+      state.operators_list = state.operators_list.filter(
+        (item) => item.id !== action.payload.id,
+      );
+    },
   },
 });
 
@@ -96,7 +98,7 @@ export const {
   addOperator,
   updateFirstInput,
   updateSecondInput,
-  // deleteUser
+  deleteOperator,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -3,15 +3,13 @@ import OperatorBox from "./OperatorBox";
 import SearchSection from "./SearchSection";
 import styles from "./action_environment.module.sass";
 import type { IRootState } from "../../../app/store";
-import { Operator_Types } from "../types";
-import { TOperator } from "../mathematicsSlice";
+import type { Operator_Types } from "../types";
+import type { TOperator } from "../mathematicsSlice";
 
 function ActionEnvironment() {
   const operatorsList = useSelector(
     (state: IRootState) => state.mathematicsData.operators_list,
   );
-
-  console.log("operatorsList", operatorsList);
 
   const getOperatorNumber = (operator_type: Operator_Types) => {
     const allItemsWithDesiredOperator = operatorsList.filter(

@@ -6,7 +6,6 @@ export const calculate = (
   operator_type: Operator_Types,
   additive?: number,
 ): number => {
-  console.log("operator_type", operator_type);
   let output: number = 0;
 
   if (operator_type === Operator_Types.SUM) {

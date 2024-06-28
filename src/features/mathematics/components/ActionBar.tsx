@@ -13,7 +13,6 @@ function ActionBar() {
   return (
     <div className={styles.action_bar}>
       {Object.values(Operator_Types).map((item, idx) => {
-        console.log("item", item);
         return (
           <button
             key={item}

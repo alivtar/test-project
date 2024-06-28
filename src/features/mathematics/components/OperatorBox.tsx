@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
 import styles from "./operator_box.module.sass";
-import { updateFirstInput, updateSecondInput } from "../mathematicsSlice";
+import {
+  deleteOperator,
+  updateFirstInput,
+  updateSecondInput,
+} from "../mathematicsSlice";
 import { Operator_Types } from "../types";
 
 type TOperatorBox = {
@@ -25,7 +29,6 @@ function OperatorBox({
   previousOperatorOutput,
 }: TOperatorBox) {
   const dispatch = useDispatch();
-  console.log("currentOperatorOutput", id, currentOperatorOutput);
 
   const isMathematicallyUndefined: boolean =
     operatorType === Operator_Types.DIVIDE && secondInputValue === 0;
@@ -97,7 +100,12 @@ function OperatorBox({
 
         <div className={styles.output_and_actions}>
           <div className={styles.operator_box_actions}>
-            <button className="cm-delete-btn">Delete</button>
+            <button
+              className="cm-delete-btn"
+              onClick={() => dispatch(deleteOperator({ id }))}
+            >
+              Delete
+            </button>
             <button className="cm-copy-btn">Copy</button>
           </div>
 
