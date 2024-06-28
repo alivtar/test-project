@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import type { Operator_Types } from "./types";
+import { Operator_Types } from "./types";
+import { calculate } from "./utils/calculate";
 
 export type TOperator = {
   readonly id: number;
@@ -31,7 +32,8 @@ const usersSlice = createSlice({
         input_1: 0,
         input_2: 0,
         operator_type: action.payload,
-        currentOperatorOutput: 0,
+        currentOperatorOutput:
+          action.payload === Operator_Types.DIVIDE ? undefined : 0,
       };
 
       ID = ID + 1;
@@ -46,10 +48,16 @@ const usersSlice = createSlice({
         if (item.id === action.payload.id) {
           const first_input_new_value = action.payload.firstInputValue;
 
+          const currentOperatorOutput = calculate(
+            first_input_new_value,
+            item.input_2,
+            item.operator_type,
+          );
+
           return {
             ...item,
             input_1: first_input_new_value,
-            currentOperatorOutput: first_input_new_value + item.input_2,
+            currentOperatorOutput,
           };
         }
         return item;
@@ -59,14 +67,20 @@ const usersSlice = createSlice({
       state,
       action: PayloadAction<{ id: TOperator["id"]; secondInputValue: number }>,
     ) => {
-      const second_input_new_value = action.payload.secondInputValue;
-
       state.operators_list = state.operators_list.map((item) => {
         if (item.id === action.payload.id) {
+          const second_input_new_value = action.payload.secondInputValue;
+
+          const currentOperatorOutput = calculate(
+            item.input_1,
+            second_input_new_value,
+            item.operator_type,
+          );
+
           return {
             ...item,
             input_2: second_input_new_value,
-            currentOperatorOutput: item.input_1 + second_input_new_value,
+            currentOperatorOutput,
           };
         }
         return item;

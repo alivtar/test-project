@@ -12,12 +12,13 @@ function ActionBar() {
 
   return (
     <div className={styles.action_bar}>
-      {Object.keys(Operator_Types).map((item, idx) => {
+      {Object.values(Operator_Types).map((item, idx) => {
+        console.log("item", item);
         return (
           <button
             key={item}
             className="cm-action-btn"
-            onClick={() => addNewOperator(item as Operator_Types)}
+            onClick={() => addNewOperator(item)}
           >
             {item}
           </button>

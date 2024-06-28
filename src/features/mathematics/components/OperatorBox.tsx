@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import styles from "./operator_box.module.sass";
 import { updateFirstInput, updateSecondInput } from "../mathematicsSlice";
+import { Operator_Types } from "../types";
 
 type TOperatorBox = {
   readonly id: number;
@@ -9,6 +10,7 @@ type TOperatorBox = {
   firstInputValue: number;
   secondInputValue: number;
   currentOperatorOutput: number | undefined;
+  operatorType: Operator_Types;
 };
 
 function OperatorBox({
@@ -18,8 +20,10 @@ function OperatorBox({
   firstInputValue,
   secondInputValue,
   currentOperatorOutput,
+  operatorType,
 }: TOperatorBox) {
   const dispatch = useDispatch();
+  console.log("currentOperatorOutput", id, currentOperatorOutput);
 
   return (
     <div className={styles.operator_box}>
@@ -62,6 +66,13 @@ function OperatorBox({
                   );
                 }}
               />
+
+              {operatorType === Operator_Types.DIVIDE &&
+                secondInputValue === 0 && (
+                  <p className={styles.math_undefined}>
+                    denominator can not be zero
+                  </p>
+                )}
             </label>
           </div>
 
@@ -82,7 +93,11 @@ function OperatorBox({
 
           <div className={styles.operator_output}>
             <p>Output Of Current Operator:</p>
-            <span>{currentOperatorOutput}</span>
+            <span>
+              {operatorType === Operator_Types.DIVIDE && secondInputValue === 0
+                ? "mathematically undefined"
+                : currentOperatorOutput}
+            </span>
           </div>
         </div>
       </div>

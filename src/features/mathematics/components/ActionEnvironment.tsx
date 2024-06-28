@@ -39,6 +39,7 @@ function ActionEnvironment() {
                 firstInputValue={item.input_1}
                 secondInputValue={item.input_2}
                 currentOperatorOutput={item.currentOperatorOutput}
+                operatorType={item.operator_type}
               />
             );
           })
