@@ -20,7 +20,7 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-// // Infer the `TRootState` and `AppDispatch` types from the store itself
+// Infer the `TRootState` and `AppDispatch` types from the store itself
 export type TRootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

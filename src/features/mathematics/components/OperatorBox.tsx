@@ -40,9 +40,7 @@ const OperatorBox: FC<TOperatorBox> = ({
       <h1 className={styles.operator_title}>{title}</h1>
 
       <div className={styles.operations_wrapper}>
-        <div
-        //   className={styles.inputs_and_summary}
-        >
+        <div>
           <div className={styles.inputs}>
             <label className="cm-input-label">
               <span>First input:</span>
