@@ -7,7 +7,7 @@ import {
 } from "../mathematicsSlice";
 import { Operator_Types } from "../types";
 import { type FC } from "react";
-import { useAppDispatch } from "../../../app/store";
+import { useAppDispatch } from "../../../app/hooks";
 
 type TOperatorBox = {
   readonly id: string;

@@ -1,21 +1,28 @@
-import { configureStore } from "@reduxjs/toolkit";
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports
-import { useDispatch, useSelector } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import mathematicsReducer from "../features/mathematics/mathematicsSlice";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
 
-const store = configureStore({
-  reducer: {
-    mathematicsData: mathematicsReducer,
-  },
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const rootReducer = combineReducers({
+  mathematicsData: mathematicsReducer,
 });
 
-// Infer the `TRootState` and `AppDispatch` types from the store itself
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+});
+
+const persistor = persistStore(store);
+
+// // Infer the `TRootState` and `AppDispatch` types from the store itself
 export type TRootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-// Use these hooks throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
-export const useAppSelector = useSelector.withTypes<TRootState>();
-
-export type IRootState = ReturnType<typeof store.getState>;
 export default store;
+export { persistor };

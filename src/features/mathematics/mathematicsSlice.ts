@@ -1,9 +1,8 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Operator_Types } from "./types";
-import { calculate } from "./utils/calculate";
-import { type IRootState } from "../../app/store";
-import { writeOperatorsListToStorage } from "./utils/storage";
+import { calculate } from "./helpers/calculate";
 import { monotonicFactory } from "ulid";
+import { type TRootState } from "../../app/store";
 
 export type TOperator = {
   readonly id: string;
@@ -31,10 +30,6 @@ const mathematicsSlice = createSlice({
   name: "mathematicsSlice",
   initialState: MATHEMATICS_INITIAL_STATE,
   reducers: {
-    overrideOperatorsList: (state, action: PayloadAction<TOperator[]>) => {
-      console.log("Inside reducer", action.payload);
-      state.operators_list = action.payload;
-    },
     addOperator: (state, action: PayloadAction<Operator_Types>) => {
       const new_operator: TOperator = {
         id: generateId(),
@@ -46,7 +41,6 @@ const mathematicsSlice = createSlice({
       };
 
       state.operators_list.push(new_operator);
-      writeOperatorsListToStorage(state.operators_list);
     },
     updateFirstInput: (
       state,
@@ -70,8 +64,6 @@ const mathematicsSlice = createSlice({
         }
         return item;
       });
-
-      writeOperatorsListToStorage(state.operators_list);
     },
     updateSecondInput: (
       state,
@@ -95,15 +87,11 @@ const mathematicsSlice = createSlice({
         }
         return item;
       });
-
-      writeOperatorsListToStorage(state.operators_list);
     },
     deleteOperator: (state, action: PayloadAction<{ id: TOperator["id"] }>) => {
       state.operators_list = state.operators_list.filter(
         (item) => item.id !== action.payload.id,
       );
-
-      writeOperatorsListToStorage(state.operators_list);
     },
     copyOperator: (
       state,
@@ -139,8 +127,6 @@ const mathematicsSlice = createSlice({
         0,
         newOperatorObj,
       );
-
-      writeOperatorsListToStorage(state.operators_list);
     },
   },
 });
@@ -151,11 +137,10 @@ export const {
   updateSecondInput,
   deleteOperator,
   copyOperator,
-  overrideOperatorsList,
 } = mathematicsSlice.actions;
 
 // Selectors
-export const selectOperatorsList = (state: IRootState) =>
+export const selectOperatorsList = (state: TRootState) =>
   state.mathematicsData.operators_list;
 
 export default mathematicsSlice.reducer;

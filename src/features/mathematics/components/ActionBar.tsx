@@ -2,7 +2,7 @@ import styles from "./action_bar.module.sass";
 import { Operator_Types } from "../types";
 import { addOperator } from "../mathematicsSlice";
 import { type FC } from "react";
-import { useAppDispatch } from "../../../app/store";
+import { useAppDispatch } from "../../../app/hooks";
 
 const ActionBar: FC = () => {
   const dispatch = useAppDispatch();

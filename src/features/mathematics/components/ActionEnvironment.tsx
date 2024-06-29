@@ -3,7 +3,7 @@ import SearchSection from "./SearchSection";
 import styles from "./action_environment.module.sass";
 import { selectOperatorsList, type TOperator } from "../mathematicsSlice";
 import { type FC } from "react";
-import { useAppSelector } from "../../../app/store";
+import { useAppSelector } from "../../../app/hooks";
 
 const ActionEnvironment: FC = () => {
   const operatorsList = useAppSelector(selectOperatorsList);

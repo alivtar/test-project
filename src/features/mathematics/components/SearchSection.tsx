@@ -1,7 +1,7 @@
 import styles from "./search_section.module.sass";
 import { type TOperator, selectOperatorsList } from "../mathematicsSlice";
 import { type FC, useState } from "react";
-import { useAppSelector } from "../../../app/store";
+import { useAppSelector } from "../../../app/hooks";
 
 const SearchSection: FC = () => {
   const operatorsList = useAppSelector(selectOperatorsList);
