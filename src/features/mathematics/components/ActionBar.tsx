@@ -24,10 +24,6 @@ const ActionBar: FC = () => {
           </button>
         );
       })}
-
-      {/* <button className="cm-action-btn">Minus</button>
-      <button className="cm-action-btn">Divide</button>
-      <button className="cm-action-btn">Multiply</button> */}
     </div>
   );
 };
