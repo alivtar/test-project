@@ -1,14 +1,12 @@
-import { useSelector } from "react-redux";
 import OperatorBox from "./OperatorBox";
 import SearchSection from "./SearchSection";
 import styles from "./action_environment.module.sass";
-import type { Operator_Types } from "../types";
 import { selectOperatorsList, type TOperator } from "../mathematicsSlice";
-import { IRootState } from "../../../app/store";
 import { type FC } from "react";
+import { useAppSelector } from "../../../app/store";
 
 const ActionEnvironment: FC = () => {
-  const operatorsList = useSelector(selectOperatorsList);
+  const operatorsList = useAppSelector(selectOperatorsList);
 
   // const getOperatorNumber = (operator_type: Operator_Types) => {
   //   const allItemsWithDesiredOperator = operatorsList.filter(

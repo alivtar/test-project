@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
 import styles from "./search_section.module.sass";
 import { type TOperator, selectOperatorsList } from "../mathematicsSlice";
 import { type FC, useState } from "react";
+import { useAppSelector } from "../../../app/store";
 
 const SearchSection: FC = () => {
-  const operatorsList = useSelector(selectOperatorsList);
+  const operatorsList = useAppSelector(selectOperatorsList);
   const [userEnteredValue, setUserEnteredValue] = useState<number | null>(null);
 
   const [foundOperator, setFoundOperator] = useState<

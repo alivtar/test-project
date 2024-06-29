@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
 import styles from "./action_bar.module.sass";
 import { Operator_Types } from "../types";
 import { addOperator } from "../mathematicsSlice";
 import { type FC } from "react";
+import { useAppDispatch } from "../../../app/store";
 
 const ActionBar: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const addNewOperator = (operatorType: Operator_Types) => {
     dispatch(addOperator(operatorType));

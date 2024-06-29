@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import styles from "./operator_box.module.sass";
 import {
   copyOperator,
@@ -8,6 +7,7 @@ import {
 } from "../mathematicsSlice";
 import { Operator_Types } from "../types";
 import { type FC } from "react";
+import { useAppDispatch } from "../../../app/store";
 
 type TOperatorBox = {
   readonly id: string;
@@ -30,7 +30,7 @@ const OperatorBox: FC<TOperatorBox> = ({
   operatorType,
   previousOperatorOutput,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isMathematicallyUndefined: boolean =
     operatorType === Operator_Types.DIVIDE && secondInputValue === 0;
