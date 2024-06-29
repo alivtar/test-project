@@ -85,7 +85,6 @@ const OperatorBox: FC<TOperatorBox> = ({
             </label>
           </div>
 
-          {/* TODO: this summary will ONLY be shown for " >= 1" indecies */}
           {operatorIndex > 0 && (
             <div className={styles.summary_wrapper}>
               <p>Summary above operator</p>

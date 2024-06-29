@@ -57,7 +57,6 @@ const SearchSection: FC = () => {
         </div>
       </div>
 
-      {/* TODO: show this box, when a "fetch" has accoured */}
       <div className={styles.search_info_wrapper}>
         {foundOperator === undefined ? (
           <p>Enter an index to start searching...</p>
