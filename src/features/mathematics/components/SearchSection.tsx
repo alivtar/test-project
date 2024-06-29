@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import styles from "./search_section.module.sass";
-import { TOperator, selectOperatorsList } from "../mathematicsSlice";
-import { useState } from "react";
+import { type TOperator, selectOperatorsList } from "../mathematicsSlice";
+import { type FC, useState } from "react";
 
-function SearchSection() {
+const SearchSection: FC = () => {
   const operatorsList = useSelector(selectOperatorsList);
   const [userEnteredValue, setUserEnteredValue] = useState<number | null>(null);
 
@@ -82,6 +82,6 @@ function SearchSection() {
       </div>
     </section>
   );
-}
+};
 
 export default SearchSection;

@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux";
 import styles from "./action_bar.module.sass";
 import { Operator_Types } from "../types";
 import { addOperator } from "../mathematicsSlice";
+import { type FC } from "react";
 
-function ActionBar() {
+const ActionBar: FC = () => {
   const dispatch = useDispatch();
 
   const addNewOperator = (operatorType: Operator_Types) => {
@@ -29,6 +30,6 @@ function ActionBar() {
       <button className="cm-action-btn">Multiply</button> */}
     </div>
   );
-}
+};
 
 export default ActionBar;

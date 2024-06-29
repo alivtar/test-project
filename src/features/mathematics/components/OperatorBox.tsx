@@ -7,6 +7,7 @@ import {
   updateSecondInput,
 } from "../mathematicsSlice";
 import { Operator_Types } from "../types";
+import { type FC } from "react";
 
 type TOperatorBox = {
   readonly id: string;
@@ -19,7 +20,7 @@ type TOperatorBox = {
   previousOperatorOutput: number | undefined;
 };
 
-function OperatorBox({
+const OperatorBox: FC<TOperatorBox> = ({
   title,
   operatorIndex,
   id,
@@ -28,7 +29,7 @@ function OperatorBox({
   currentOperatorOutput,
   operatorType,
   previousOperatorOutput,
-}: TOperatorBox) {
+}) => {
   const dispatch = useDispatch();
 
   const isMathematicallyUndefined: boolean =
@@ -136,6 +137,6 @@ function OperatorBox({
       </div>
     </div>
   );
-}
+};
 
 export default OperatorBox;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { type FC, useEffect } from "react";
 import ActionBar from "./components/ActionBar";
 import ActionEnvironment from "./components/ActionEnvironment";
 import styles from "./mathematics.module.sass";
@@ -6,7 +6,7 @@ import { readOperatorsListFromStorage } from "./utils/storage";
 import { useDispatch } from "react-redux";
 import { overrideOperatorsList } from "./mathematicsSlice";
 
-function Mathematics() {
+const Mathematics: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,6 +25,6 @@ function Mathematics() {
       </div>
     </div>
   );
-}
+};
 
 export default Mathematics;

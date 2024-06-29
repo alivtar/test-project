@@ -5,8 +5,9 @@ import styles from "./action_environment.module.sass";
 import type { Operator_Types } from "../types";
 import { selectOperatorsList, type TOperator } from "../mathematicsSlice";
 import { IRootState } from "../../../app/store";
+import { type FC } from "react";
 
-function ActionEnvironment() {
+const ActionEnvironment: FC = () => {
   const operatorsList = useSelector(selectOperatorsList);
 
   // const getOperatorNumber = (operator_type: Operator_Types) => {
@@ -53,6 +54,6 @@ function ActionEnvironment() {
       <SearchSection />
     </div>
   );
-}
+};
 
 export default ActionEnvironment;
